@@ -10,11 +10,8 @@ import { router } from './router'
 export function App() {
   return (
     <HelmetProvider>
-      <Helmet titleTemplate="%s | Template Nitro HUB Frontend" />
-      <ThemeProvider
-        storageKey="template-nitro-hub-frontend"
-        defaultTheme="dark"
-      >
+      <Helmet titleTemplate="%s | Temporizer - App de controle de tempo" />
+      <ThemeProvider storageKey="temporizer" defaultTheme="dark">
         <QueryClientProvider client={queryClient}>
           <RouterProvider router={router} />
 

@@ -68,10 +68,10 @@
 
   @layer base {
     * {
-      @apply border-border antialiased font-sans;
+      @apply border-border antialiased;
     }
     body {
-      @apply bg-background text-foreground;
+      @apply bg-background text-foreground font-sans;
     }
   }
 
@@ -81,4 +81,9 @@
 
   ::-webkit-scrollbar-thumb {
     @apply bg-zinc-600
+  }
+
+
+  ::selection {
+    @apply bg-emerald-500 text-white
   }

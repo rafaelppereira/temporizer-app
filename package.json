@@ -2,14 +2,41 @@
   "name": "template-nitro-hub-frontend",
   "private": true,
   "version": "0.0.0",
-  "type": "module",
+  "main": "dist-electron/main.js",
+  "build": {
+    "appId": "com.seunome.temporizer",
+    "productName": "Temporizer",
+    "files": [
+      "dist/**/*",
+      "dist-electron/**/*"
+    ],
+    "directories": {
+      "buildResources": "assets"
+    },
+    "mac": {
+      "target": [
+        "dmg"
+      ],
+      "icon": "assets/icon.icns"
+    },
+    "win": {
+      "target": [
+        "nsis"
+      ],
+      "icon": "assets/icon.ico"
+    }
+  },
   "scripts": {
     "dev": "vite",
-    "build": "tsc -b && vite build",
-    "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "build": "vite build",
+    "build-electron": "tsc -p tsconfig.electron.json",
+    "dist": "npm run build && npm run build-electron && electron-builder",
+    "dev-electron": "npm run build-electron && VITE_DEV_SERVER_URL=http://localhost:5173 electron dist-electron/main.js",
+    "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0"
   },
   "dependencies": {
+    "@radix-ui/react-dialog": "^1.1.6",
     "@radix-ui/react-dropdown-menu": "^2.1.1",
     "@radix-ui/react-slot": "^1.1.0",
     "@tanstack/react-query": "^5.45.1",
@@ -17,8 +44,12 @@
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.1.1",
     "date-fns": "^3.6.0",
+    "dist": "^0.1.2",
+    "framer-motion": "^12.5.0",
     "lucide-react": "^0.396.0",
+    "motion": "^12.5.0",
     "next-themes": "^0.3.0",
+    "postprocessing": "^6.37.1",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
     "react-helmet-async": "^2.0.5",
@@ -27,15 +58,20 @@
     "sonner": "^1.5.0",
     "tailwind-merge": "^2.3.0",
     "tailwindcss-animate": "^1.0.7",
+    "three": "^0.174.0",
     "uuid": "^10.0.0",
     "zod": "^3.23.8"
   },
   "devDependencies": {
     "@rocketseat/eslint-config": "^2.2.2",
     "@types/axios": "^0.14.0",
+    "@types/electron": "^1.6.12",
     "@types/node": "^20.14.8",
+    "electron-builder": "^25.1.8",
     "@types/react": "^18.3.3",
+    "electron": "^35.0.3",
     "@types/react-dom": "^18.3.0",
+    "@types/three": "^0.174.0",
     "@types/uuid": "^10.0.0",
     "@typescript-eslint/eslint-plugin": "^7.13.1",
     "@typescript-eslint/parser": "^7.13.1",

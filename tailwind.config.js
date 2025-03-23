@@ -14,6 +14,7 @@ module.exports = {
     extend: {
       fontFamily: {
         sans: 'Plus Jakarta Sans',
+        orbitron: 'Orbitron',
       },
       fontSize: {
         xxs: '0.625rem',
