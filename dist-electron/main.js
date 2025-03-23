@@ -57,17 +57,35 @@ function setupTray() {
     tray = new electron_1.Tray(trayIcon);
     tray.setToolTip('Temporizer');
     tray.on('click', () => {
-        const trayBounds = tray.getBounds();
-        const windowBounds = trayWindow.getBounds();
-        const x = Math.round(trayBounds.x + trayBounds.width / 2 - windowBounds.width / 2);
-        const y = Math.round(trayBounds.y + trayBounds.height + 4);
-        trayWindow.setPosition(x, y, false);
-        trayWindow.isVisible() ? trayWindow.hide() : trayWindow.show();
+        try {
+            const trayBounds = tray.getBounds();
+            const windowBounds = trayWindow.getBounds();
+            const x = Math.round(trayBounds.x + trayBounds.width / 2 - windowBounds.width / 2);
+            const y = process.platform === 'darwin'
+                ? Math.round(trayBounds.y + trayBounds.height + 4)
+                : Math.round(trayBounds.y - windowBounds.height - 4);
+            if (isNaN(x) || isNaN(y)) {
+                trayWindow.center();
+            }
+            else {
+                trayWindow.setPosition(x, y, false);
+            }
+            trayWindow.isVisible() ? trayWindow.hide() : trayWindow.show();
+        }
+        catch (err) {
+            console.error('Erro ao posicionar janela do tray:', err);
+            trayWindow.center();
+            trayWindow.show();
+        }
     });
 }
 electron_1.app.whenReady().then(() => {
     createTrayWindow();
     setupTray();
+    // trayWindow.once('ready-to-show', () => {
+    //   trayWindow.center()
+    //   trayWindow.show()
+    // })
     if (process.platform === 'darwin') {
         electron_1.app.dock?.hide();
     }

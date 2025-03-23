@@ -1,5 +1,5 @@
 {
-  "name": "template-nitro-hub-frontend",
+  "name": "temporizer-app",
   "private": true,
   "version": "0.0.0",
   "main": "dist-electron/main.js",
@@ -8,7 +8,8 @@
     "productName": "Temporizer",
     "files": [
       "dist/**/*",
-      "dist-electron/**/*"
+      "dist-electron/**/*",
+      "assets/**/*"
     ],
     "directories": {
       "buildResources": "assets"
